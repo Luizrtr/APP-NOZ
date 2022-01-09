@@ -21,4 +21,7 @@ export const Container = styled.div`
       ${tw`flex gap-5 items-center`}
     }
   }
+  .books {
+    ${tw`grid grid-cols-4 mx-20`}
+  }
 `;
