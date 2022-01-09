@@ -26,6 +26,7 @@ export const Login: React.FC = () => {
             <div>
               <input id="password" type="password" />
               <label>Senha</label>
+              <button>Entrar</button>
             </div>
           </form>
         </div>
