@@ -1,5 +1,3 @@
-/* eslint-disable react/jsx-indent */
-/* eslint-disable prettier/prettier */
 import React, { useEffect, useState } from 'react';
 import {
   RouteProps as ReactDOMRouteProps,
@@ -11,6 +9,8 @@ import {
 import { v4 as uuid } from 'uuid';
 import jwtDecode from 'jwt-decode';
 import { toast } from 'react-toastify';
+
+import { useAuth } from '../hooks/auth';
 
 interface RouteProps extends ReactDOMRouteProps {
   isPrivate?: boolean;
@@ -31,6 +31,7 @@ const Route: React.FC<RouteProps> = ({
   const locationHref = useLocation().pathname;
   const history = useHistory();
   const [isAuth, setIsAuth] = useState<boolean>(true);
+  const { user, signOut } = useAuth();
 
   useEffect(() => {
     const token = localStorage.getItem('@APPNOZ:token');
@@ -69,7 +70,6 @@ const Route: React.FC<RouteProps> = ({
     }
 
     setIsAuth(true);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [signOut, locationHref]);
 
   return (
