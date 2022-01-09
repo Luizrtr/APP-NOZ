@@ -1,6 +1,5 @@
-import app from './components/app'
-import login from './components/login'
+import home from './components/home'
 
-const routes = app.concat(login);
+const routes = home.concat();
 
 export default routes;

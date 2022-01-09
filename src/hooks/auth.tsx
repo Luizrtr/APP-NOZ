@@ -9,8 +9,8 @@ interface AuthState {
 }
 
 export interface SignInCredentials {
-  login: string;
-  senha: string;
+  email: string;
+  password: string;
 }
 
 export interface IUserData {
@@ -41,20 +41,23 @@ export const AuthProvider: React.FC = ({ children }) => {
     return {} as AuthState;
   });
 
-  const signIn = useCallback(async ({ email, senha }) => {
-    const sendData = { email, senha };
+  const signIn = useCallback(async ({ email, password }) => {
     const response = await api.post(
       'http://books.appnoz.com.br/api/v1/auth/sign-in',
       {
-        sendData,
+        email,
+        password,
       },
     );
 
-    if (response.data?.token && response.data?.user) {
-      const { token, user } = response.data;
+    if (response.headers.authorization && response.data) {
+      const { user } = response.data;
+      const { token } = response.headers.authorization;
+      console.log(response.data);
+      console.log(response.headers.authorization);
 
-      localStorage.setItem('@APPNOZ:token', token);
-      localStorage.setItem('@APPNOZ:user', JSON.stringify(user));
+      localStorage.setItem('@APPNOZ:token', response.headers.authorization);
+      localStorage.setItem('@APPNOZ:user', JSON.stringify(response.data));
 
       setData({ token, user });
     } else {

@@ -1,5 +1,6 @@
 import React, { lazy } from 'react';
 
+const Home = lazy(() => import('../../pages/Home'));
 const Login = lazy(() => import('../../pages/Login'));
 
 interface IRoutes {
@@ -10,7 +11,13 @@ interface IRoutes {
   isRestricted?: boolean;
 }
 
-const login: IRoutes[] = [
+const home: IRoutes[] = [
+  {
+    path: ['/home'],
+    component: Home,
+    isPrivate: true,
+    exact: true,
+  },
   {
     path: ['/'],
     component: Login,
@@ -18,4 +25,4 @@ const login: IRoutes[] = [
   },
 ];
 
-export default login;
+export default home;

@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
 
 import { Container } from './styles';
 import app from '../../assets/login/app.png';
 import noz from '../../assets/login/noz.png';
+import { useAuth } from '../../hooks/auth';
 
+interface ILogin {
+  email: string;
+  password: string;
+}
 export const Login: React.FC = () => {
   document.body.style.backgroundImage = `url(${app})`;
   document.body.style.backgroundPosition = 'center';
@@ -12,9 +18,15 @@ export const Login: React.FC = () => {
   document.body.style.backgroundAttachment = 'fixed';
 
   const [error, setError] = useState(false);
+  const { register, handleSubmit } = useForm();
+  const { signIn } = useAuth();
 
-  const handleError = () => {
-    setError(oldError => !oldError);
+  const onSubmit = async (inputData: ILogin) => {
+    const sendData = {
+      email: inputData.email,
+      password: inputData.password,
+    };
+    await signIn({ email: inputData.email, password: inputData.password });
   };
 
   return (
@@ -25,15 +37,23 @@ export const Login: React.FC = () => {
           <h2>Books</h2>
         </div>
         <div className="forms">
-          <form action="">
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="inputs">
-              <input id="email" type="text" />
+              <input
+                id="email"
+                type="text"
+                {...register('email', { required: true })}
+              />
               <label>Email</label>
             </div>
             <div className="inputs">
-              <input id="password" type="password" />
+              <input
+                id="password"
+                type="password"
+                {...register('password', { required: true })}
+              />
               <label>Senha</label>
-              <button onClick={handleError}>Entrar</button>
+              <button type="submit">Entrar</button>
             </div>
           </form>
         </div>

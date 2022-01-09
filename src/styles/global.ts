@@ -31,6 +31,7 @@ const StylesBase = createGlobalStyle`
 body {
     font-family: 'Heebo', sans-serif;
     color: var(--white);
+    background: #E5E5E5;
 }
 
 
