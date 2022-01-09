@@ -21,11 +21,11 @@ export const Login: React.FC = () => {
           <form action="">
             <div>
               <input id="email" type="text" />
-              <label>Email Address</label>
+              <label>Email</label>
             </div>
             <div>
               <input id="password" type="password" />
-              <label>Password</label>
+              <label>Senha</label>
             </div>
           </form>
         </div>

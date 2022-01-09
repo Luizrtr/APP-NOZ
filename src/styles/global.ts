@@ -41,6 +41,12 @@ select,
 button {
   font: 400 1rem "Heebo", sans-serif;
 }
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
 
 button {
   cursor: pointer;
