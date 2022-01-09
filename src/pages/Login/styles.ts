@@ -23,8 +23,7 @@ export const Container = styled.div`
           ${tw`relative`}
         }
         input:focus + label,
-        input:active + label,
-        input.filled + label {
+        input:active + label {
           font-size: 0.75rem;
           transition: all 0.2s ease-out;
           top: -0.1rem;
@@ -45,8 +44,10 @@ export const Container = styled.div`
           left: 0;
         }
         button {
+          ${tw`leading-5 font-medium absolute mr-3`}
           color: var(--pink);
-          ${tw`leading-5 font-medium`}
+          top: 0.8rem;
+          right: 0;
           background: var(--white);
           width: 5.313rem;
           height: 2.25rem;
