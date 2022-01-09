@@ -37,7 +37,7 @@ const Route: React.FC<RouteProps> = ({
     const token = localStorage.getItem('@APPNOZ:token');
 
     if (token === null && isPrivate !== !!user) {
-      history.push('/login');
+      history.push('/');
     }
 
     if (token) {
@@ -64,7 +64,7 @@ const Route: React.FC<RouteProps> = ({
         setTimeout(() => {
           signOut();
 
-          history.push('/login');
+          history.push('/');
         }, 1000);
       }
     }
@@ -78,7 +78,7 @@ const Route: React.FC<RouteProps> = ({
       render={({ location }) => {
         return isPrivate === !!user
           ? [
-              isAuth || location.pathname.includes('/login', undefined) ? (
+              isAuth || location.pathname.includes('/', undefined) ? (
                 <Component key={uuid()} />
               ) : (
                 <div>Page not found</div>
@@ -88,7 +88,7 @@ const Route: React.FC<RouteProps> = ({
               isRestricted ? (
                 <Redirect
                   to={{
-                    pathname: isPrivate ? '/login' : '/home',
+                    pathname: isPrivate ? '/' : '/home',
                     state: { from: location },
                   }}
                 />

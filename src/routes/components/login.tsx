@@ -1,6 +1,6 @@
 import React, { lazy } from 'react';
 
-const App = lazy(() => import('../../pages/Home'));
+const Login = lazy(() => import('../../pages/Login'));
 
 interface IRoutes {
   path: string[];
@@ -10,13 +10,12 @@ interface IRoutes {
   isRestricted?: boolean;
 }
 
-const app: IRoutes[] = [
+const login: IRoutes[] = [
   {
-    path: ['/home'],
-    component: App,
-    isPrivate: true,
+    path: ['/'],
+    component: Login,
     exact: true,
   },
 ];
 
-export default app;
+export default login;
