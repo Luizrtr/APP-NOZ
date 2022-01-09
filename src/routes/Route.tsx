@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-indent */
+
 import React, { useEffect, useState } from 'react';
 import {
   RouteProps as ReactDOMRouteProps,
@@ -70,6 +72,7 @@ const Route: React.FC<RouteProps> = ({
     }
 
     setIsAuth(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [signOut, locationHref]);
 
   return (

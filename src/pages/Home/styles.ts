@@ -18,10 +18,13 @@ export const Container = styled.div`
       }
     }
     .lastContent {
-      ${tw`flex gap-5 items-center`}
+      ${tw`flex gap-5 items-center `}
+      p {
+        ${tw`hidden md:visible`}
+      }
     }
   }
   .books {
-    ${tw`grid grid-cols-4 mx-20`}
+    ${tw`grid grid-cols-1 md:grid-cols-4 container mx-auto justify-items-center gap-y-4`}
   }
 `;

@@ -53,12 +53,10 @@ export const AuthProvider: React.FC = ({ children }) => {
     if (response.headers.authorization && response.data) {
       const { user } = response.data;
       const { token } = response.headers.authorization;
-      console.log(response.data);
-      console.log(response.headers.authorization);
 
       localStorage.setItem('@APPNOZ:token', response.headers.authorization);
       localStorage.setItem('@APPNOZ:user', JSON.stringify(response.data));
-
+      console.log(response);
       setData({ token, user });
     } else {
       toast.error(
