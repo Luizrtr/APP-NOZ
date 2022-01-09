@@ -7,7 +7,13 @@ const StylesBase = createGlobalStyle`
   box-sizing: border-box;
 }
 :root {
+  /* Colors */
   --white: #ffffff;
+  --blue: #2E63F7;
+  --gray: #333333;
+  --gray-300: #999999;
+  --pink: #AB2680;
+
 }
 
 @media (max-width: 1080px) {
