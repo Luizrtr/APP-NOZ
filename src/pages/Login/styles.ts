@@ -2,9 +2,10 @@ import styled from 'styled-components';
 import tw from 'twin.macro';
 
 export const Container = styled.div`
+  overflow-x: clip;
   > div {
-    ${tw`md:mt-80 md:ml-44`}
-    > div {
+    ${tw`md:mt-80 md:ml-44 container mx-auto px-5 mt-64`}
+    .header {
       ${tw`flex flex-row mb-14 gap-2`}
       img {
         ${tw`self-center`}
@@ -16,7 +17,8 @@ export const Container = styled.div`
         line-height: 2.5rem;
       }
     }
-    > div {
+    .forms {
+      ${tw`mb-5`}
       form {
         ${tw`flex flex-col gap-y-4`}
         div {
@@ -54,6 +56,31 @@ export const Container = styled.div`
           border-radius: 2.75rem;
         }
       }
+    }
+    .error {
+      ${tw`px-4 py-3 rounded `}
+      width: 16rem;
+      height: 3rem;
+
+      background: rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(2px);
+
+      p {
+        ${tw`leading-4 font-medium `}
+      }
+    }
+    .error:before {
+      position: absolute;
+      border: 10px solid transparent;
+      border-right-color: rgba(255, 255, 255, 0.4);
+      transform: rotate(90deg);
+      backdrop-filter: blur(2px);
+
+      content: '';
+      width: 0.5rem;
+      height: 1rem;
+      left: 25px;
+      top: -20px;
     }
   }
 `;

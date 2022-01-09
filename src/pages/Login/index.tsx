@@ -13,11 +13,11 @@ export const Login: React.FC = () => {
   return (
     <Container>
       <div>
-        <div>
+        <div className="header">
           <img src={noz} alt="" />
           <h2>Books</h2>
         </div>
-        <div>
+        <div className="forms">
           <form action="">
             <div>
               <input id="email" type="text" />
@@ -29,6 +29,10 @@ export const Login: React.FC = () => {
               <button>Entrar</button>
             </div>
           </form>
+        </div>
+        {/* <div className="vetor" /> */}
+        <div className="error">
+          <p>Email e/ou senha incorretos.</p>
         </div>
       </div>
     </Container>
