@@ -21,7 +21,7 @@ export const Container = styled.div`
       ${tw`mb-5`}
       form {
         ${tw`flex flex-col gap-y-4`}
-        div {
+        .inputs {
           ${tw`relative`}
         }
         input:focus + label,
@@ -48,8 +48,9 @@ export const Container = styled.div`
         button {
           ${tw`leading-5 font-medium absolute mr-3`}
           color: var(--pink);
-          top: 0.8rem;
-          right: 0;
+          top: 12px;
+          left: 260px;
+
           background: var(--white);
           width: 5.313rem;
           height: 2.25rem;
