@@ -20,7 +20,7 @@ export const Container = styled.div`
     .lastContent {
       ${tw`flex gap-5 items-center `}
       p {
-        ${tw`hidden md:visible`}
+        ${tw`hidden md:flex`}
       }
     }
   }

@@ -37,28 +37,28 @@ export const App: React.FC = () => {
       amount,
       category: 'biographies',
     };
-    // await api
-    //   .get(`/books`, { page, amount, category: 'biographies' })
-    //   .then(response => {
-    //     const { data } = response;
-    //     console.log(data);
-    //   });
+    const res = await axios.get(
+      `http://books.appnoz.com.br/api/v1/books?page=${page}&amount=${amount}&category=biographies`,
+      {
+        headers: {
+          authorization:
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MWM5YzUyNTYxODk3NDVkY2Q1MDUwMGEiLCJ2bGQiOjE2NDE3NzM4MzY3NTcsImlhdCI6MTY0MTc3NzQzNjc1N30.KewJbf-U6sm0Hp9gxaN0x3CO8ovoKEQXBLdhcw7-CWI',
+        },
+      },
+    );
+    console.log(res);
 
-    axios({
-      method: 'get',
-      baseURL: 'http://books.appnoz.com.br/api/v1',
-      url: `/books?page=${page}&amount=${amount}&category=biographies`,
-      headers: {
-        authorization: `${token}`,
-      },
-      auth: {
-        username: 'esafio@appnoz.com.br',
-        password: '12341234',
-      },
-    }).then(response => {
-      const { data } = response;
-      console.log(response);
-    });
+    // axios({
+    //   method: 'get',
+    //   baseURL: 'http://books.appnoz.com.br/api/v1',
+    //   url: `/books?page=${page}&amount=${amount}&category=biographies`,
+    //   headers: {
+    //     authorization: `${token}`,
+    //   },
+    // }).then(response => {
+    //   const { data } = response;
+    //   console.log(response);
+    // });
   };
   fetchBooks(1, 25);
   return (
