@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-indent */
-
 import React, { useEffect, useState } from 'react';
 import {
   RouteProps as ReactDOMRouteProps,
@@ -30,10 +29,10 @@ const Route: React.FC<RouteProps> = ({
   component: Component,
   ...rest
 }) => {
+  const { user, signOut } = useAuth();
   const locationHref = useLocation().pathname;
   const history = useHistory();
   const [isAuth, setIsAuth] = useState<boolean>(true);
-  const { user, signOut } = useAuth();
 
   useEffect(() => {
     const token = localStorage.getItem('@APPNOZ:token');
@@ -84,7 +83,7 @@ const Route: React.FC<RouteProps> = ({
               isAuth || location.pathname.includes('/', undefined) ? (
                 <Component key={uuid()} />
               ) : (
-                <div>Page not found</div>
+                <></>
               ),
             ]
           : [

@@ -8,7 +8,6 @@ import log_out from '../../assets/home/logout.png';
 
 import { Container } from './styles';
 import { Card } from '../../components/Card';
-import api from '../../services/api';
 
 interface IBooks {
   id: string;

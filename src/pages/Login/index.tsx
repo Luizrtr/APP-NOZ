@@ -17,15 +17,10 @@ export const Login: React.FC = () => {
   document.body.style.backgroundSize = 'cover';
   document.body.style.backgroundAttachment = 'fixed';
 
-  const [error, setError] = useState(false);
   const { register, handleSubmit } = useForm();
-  const { signIn } = useAuth();
+  const { signIn, error } = useAuth();
 
   const onSubmit = async (inputData: ILogin) => {
-    const sendData = {
-      email: inputData.email,
-      password: inputData.password,
-    };
     await signIn({ email: inputData.email, password: inputData.password });
   };
 

@@ -27,75 +27,80 @@ interface AuthContextData {
   user: IUserData | undefined;
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
+  error: boolean;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 export const AuthProvider: React.FC = ({ children }) => {
+  const [error, setError] = useState(false);
   const [data, setData] = useState<AuthState | null>(() => {
     const token = localStorage.getItem('@APPNOZ:token');
     const refreshToken = localStorage.getItem('@APPNOZ:refreshToken');
     const user = localStorage.getItem('@APPNOZ:user');
 
-    if (token && user) {
-      return { token, user: JSON.parse(user) };
+    if (token && user && refreshToken) {
+      return { token, user: JSON.parse(user), refreshToken };
     }
 
     return {} as AuthState;
   });
 
   const signIn = useCallback(async ({ email, password }) => {
-    const response = await api.post('/auth/sign-in', {
-      email,
-      password,
-    });
+    await api
+      .post('/auth/sign-in', {
+        email,
+        password,
+      })
+      .then(response => {
+        const { user } = response.data;
+        const token = response.headers.authorization;
+        const refreshToken = response.headers['refresh-token'];
+        localStorage.setItem('@APPNOZ:user', JSON.stringify(response.data));
 
-    if (response.headers.authorization && response.data) {
-      const { user } = response.data;
-      const token = response.headers.authorization;
-      const refreshToken = response.headers['refresh-token'];
-      localStorage.setItem('@APPNOZ:user', JSON.stringify(response.data));
-
-      axios({
-        method: 'post',
-        headers: {
-          authorization: 'Bearer ' + token,
-        },
-        data: { refreshToken },
-        baseURL: 'http://books.appnoz.com.br/api/v1',
-        url: '/auth/refresh-token',
-      }).then(responseToken => {
-        localStorage.setItem(
-          '@APPNOZ:refreshToken',
-          responseToken.headers['refresh-token'],
-        );
-        localStorage.setItem(
-          '@APPNOZ:token',
-          responseToken.headers.authorization,
-        );
-        setData({
-          token: responseToken.headers.authorization,
-          user,
-          refreshToken,
+        axios({
+          method: 'post',
+          headers: {
+            authorization: 'Bearer ' + token,
+          },
+          data: { refreshToken },
+          baseURL: 'http://books.appnoz.com.br/api/v1',
+          url: '/auth/refresh-token',
+        }).then(responseToken => {
+          localStorage.setItem(
+            '@APPNOZ:refreshToken',
+            responseToken.headers['refresh-token'],
+          );
+          localStorage.setItem(
+            '@APPNOZ:token',
+            responseToken.headers.authorization,
+          );
+          setData({
+            token: responseToken.headers.authorization,
+            user,
+            refreshToken,
+          });
+          document.location.reload();
         });
+      })
+      .catch(() => {
+        setError(true);
+        toast.error(
+          <div>
+            Acesso negado.
+            <br /> Verifique seus dados e tente novamente.
+          </div>,
+          {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          },
+        );
       });
-    } else {
-      toast.error(
-        <div>
-          Acesso negado.
-          <br /> Verifique seus dados e tente novamente.
-        </div>,
-        {
-          position: 'top-right',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        },
-      );
-    }
   }, []);
 
   const signOut = useCallback(() => {
@@ -107,7 +112,7 @@ export const AuthProvider: React.FC = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user: data?.user, signIn, signOut }}>
+    <AuthContext.Provider value={{ user: data?.user, signIn, signOut, error }}>
       {children}
     </AuthContext.Provider>
   );

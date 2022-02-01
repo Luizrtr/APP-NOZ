@@ -1,7 +1,7 @@
 import React, { lazy } from 'react';
 
-const Home = lazy(() => import('../../pages/Home'));
 const Login = lazy(() => import('../../pages/Login'));
+const Home = lazy(() => import('../../pages/Home'));
 
 interface IRoutes {
   path: string[];
@@ -13,14 +13,14 @@ interface IRoutes {
 
 const home: IRoutes[] = [
   {
-    path: ['/home'],
-    component: Home,
-    isPrivate: true,
+    path: ['/'],
+    component: Login,
     exact: true,
   },
   {
-    path: ['/'],
-    component: Login,
+    path: ['/home'],
+    component: Home,
+    isPrivate: true,
     exact: true,
   },
 ];

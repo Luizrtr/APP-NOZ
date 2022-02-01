@@ -31,7 +31,7 @@ export const Card: React.FC<IProps> = ({
           <div>
             <p>{pages} Páginas</p>
             <p>Editora {company}</p>
-            <p>{data}</p>
+            <p>Publicado em {data}</p>
           </div>
         </div>
       </div>

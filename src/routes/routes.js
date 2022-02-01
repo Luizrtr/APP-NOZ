@@ -1,4 +1,4 @@
-import home from './components/home'
+import home from './components/home';
 
 const routes = home.concat();
 
