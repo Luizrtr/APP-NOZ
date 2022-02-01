@@ -3,7 +3,7 @@ import { Container } from './styles';
 
 interface IProps {
   title: string;
-  author: string;
+  author: string[];
   pages: string;
   company: string;
   data: string;
@@ -25,10 +25,12 @@ export const Card: React.FC<IProps> = ({
         </div>
         <div className="content">
           <strong>{title}</strong>
-          <h3>{author}</h3>
+          {author.map(a => (
+            <h3>{a}</h3>
+          ))}
           <div>
-            <p>{pages}</p>
-            <p>{company}</p>
+            <p>{pages} Páginas</p>
+            <p>Editora {company}</p>
             <p>{data}</p>
           </div>
         </div>

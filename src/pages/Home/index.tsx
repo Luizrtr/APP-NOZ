@@ -14,7 +14,7 @@ interface IBooks {
   id: string;
   title: string;
   description: string;
-  authors: string;
+  authors: string[];
   pageCount: number;
   category: string;
   imageUrl: string;
@@ -27,40 +27,30 @@ interface IBooks {
 
 export const App: React.FC = () => {
   const { user, signOut } = useAuth();
-  const [books, setBooks] = useState<IBooks>();
+  const [books, setBooks] = useState<IBooks[]>();
   const token = localStorage.getItem('@APPNOZ:token');
 
-  const fetchBooks = async (page: number, amount: number) => {
-    const category = 'biographies';
-    const sendData = {
-      page,
-      amount,
-      category: 'biographies',
-    };
-    const res = await axios.get(
-      `http://books.appnoz.com.br/api/v1/books?page=${page}&amount=${amount}&category=biographies`,
-      {
-        headers: {
-          authorization:
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MWM5YzUyNTYxODk3NDVkY2Q1MDUwMGEiLCJ2bGQiOjE2NDE3NzM4MzY3NTcsImlhdCI6MTY0MTc3NzQzNjc1N30.KewJbf-U6sm0Hp9gxaN0x3CO8ovoKEQXBLdhcw7-CWI',
-        },
+  const fetchBooks = async (page: number, amount: number, category: string) => {
+    axios({
+      method: 'get',
+      baseURL: 'http://books.appnoz.com.br/api/v1',
+      url: `/books?page=${page}&amount=${amount}&category=${category}`,
+      headers: {
+        authorization: 'Bearer ' + token,
       },
-    );
-    console.log(res);
-
-    // axios({
-    //   method: 'get',
-    //   baseURL: 'http://books.appnoz.com.br/api/v1',
-    //   url: `/books?page=${page}&amount=${amount}&category=biographies`,
-    //   headers: {
-    //     authorization: `${token}`,
-    //   },
-    // }).then(response => {
-    //   const { data } = response;
-    //   console.log(response);
-    // });
+    }).then(response => {
+      const { data } = response;
+      if (data) {
+        console.log(data.data);
+        setBooks(data.data);
+      }
+    });
   };
-  fetchBooks(1, 25);
+
+  useEffect(() => {
+    fetchBooks(1, 25, 'biographies');
+  }, []);
+
   return (
     <Container>
       <div className="header">
@@ -76,38 +66,18 @@ export const App: React.FC = () => {
         </div>
       </div>
       <div className="books">
-        <Card
-          title="Crossing the Chasm"
-          author="Geoffrey A. Moore"
-          pages="150 páginas"
-          company="Editora Loyola"
-          data="Publicado em 2020"
-          img="https://d2drtqy2ezsot0.cloudfront.net/Book-0.jpg"
-        />
-        <Card
-          title="Crossing the Chasm"
-          author="Geoffrey A. Moore"
-          pages="150 páginas"
-          company="Editora Loyola"
-          data="Publicado em 2020"
-          img="https://d2drtqy2ezsot0.cloudfront.net/Book-0.jpg"
-        />
-        <Card
-          title="Crossing the Chasm"
-          author="Geoffrey A. Moore"
-          pages="150 páginas"
-          company="Editora Loyola"
-          data="Publicado em 2020"
-          img="https://d2drtqy2ezsot0.cloudfront.net/Book-0.jpg"
-        />
-        <Card
-          title="Crossing the Chasm"
-          author="Geoffrey A. Moore"
-          pages="150 páginas"
-          company="Editora Loyola"
-          data="Publicado em 2020"
-          img="https://d2drtqy2ezsot0.cloudfront.net/Book-0.jpg"
-        />
+        {books &&
+          books.map(b => (
+            <Card
+              key={b.id}
+              title={b.title}
+              author={b.authors}
+              pages={b.pageCount.toString()}
+              company={b.publisher}
+              data={b.published.toString()}
+              img={b.imageUrl}
+            />
+          ))}
       </div>
     </Container>
   );

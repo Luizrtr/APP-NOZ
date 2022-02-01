@@ -1,9 +1,11 @@
+import axios from 'axios';
 import React, { createContext, useCallback, useContext, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import api from '../services/api';
 
 interface AuthState {
+  refreshToken?: string;
   token: string;
   user: IUserData | undefined;
 }
@@ -32,6 +34,7 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 export const AuthProvider: React.FC = ({ children }) => {
   const [data, setData] = useState<AuthState | null>(() => {
     const token = localStorage.getItem('@APPNOZ:token');
+    const refreshToken = localStorage.getItem('@APPNOZ:refreshToken');
     const user = localStorage.getItem('@APPNOZ:user');
 
     if (token && user) {
@@ -42,22 +45,40 @@ export const AuthProvider: React.FC = ({ children }) => {
   });
 
   const signIn = useCallback(async ({ email, password }) => {
-    const response = await api.post(
-      'http://books.appnoz.com.br/api/v1/auth/sign-in',
-      {
-        email,
-        password,
-      },
-    );
+    const response = await api.post('/auth/sign-in', {
+      email,
+      password,
+    });
 
     if (response.headers.authorization && response.data) {
       const { user } = response.data;
-      const { token } = response.headers.authorization;
-
-      localStorage.setItem('@APPNOZ:token', response.headers.authorization);
+      const token = response.headers.authorization;
+      const refreshToken = response.headers['refresh-token'];
       localStorage.setItem('@APPNOZ:user', JSON.stringify(response.data));
-      console.log(response);
-      setData({ token, user });
+
+      axios({
+        method: 'post',
+        headers: {
+          authorization: 'Bearer ' + token,
+        },
+        data: { refreshToken },
+        baseURL: 'http://books.appnoz.com.br/api/v1',
+        url: '/auth/refresh-token',
+      }).then(responseToken => {
+        localStorage.setItem(
+          '@APPNOZ:refreshToken',
+          responseToken.headers['refresh-token'],
+        );
+        localStorage.setItem(
+          '@APPNOZ:token',
+          responseToken.headers.authorization,
+        );
+        setData({
+          token: responseToken.headers.authorization,
+          user,
+          refreshToken,
+        });
+      });
     } else {
       toast.error(
         <div>
@@ -80,6 +101,7 @@ export const AuthProvider: React.FC = ({ children }) => {
   const signOut = useCallback(() => {
     localStorage.removeItem('@APPNOZ:token');
     localStorage.removeItem('@APPNOZ:user');
+    localStorage.removeItem('@APPNOZ:refreshToken');
 
     setData({} as AuthState);
   }, []);
