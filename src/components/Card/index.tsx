@@ -21,7 +21,7 @@ export const Card: React.FC<IProps> = ({
     <Container>
       <div className="tools">
         <div className="imgContent">
-          <img src={img} />
+          <img alt="capa" src={img} />
         </div>
         <div className="content">
           <strong>{title}</strong>

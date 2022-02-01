@@ -48,13 +48,14 @@ export const App: React.FC = () => {
 
   useEffect(() => {
     fetchBooks(1, 25, 'biographies');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <Container>
       <div className="header">
         <div className="fistContent">
-          <img src={noz} />
+          <img alt="noz" src={noz} />
           <h2>Books</h2>
         </div>
         <div className="lastContent">
