@@ -1,4 +1,5 @@
 import React from 'react';
+import { useBoard } from '../../Context/board';
 import { Container } from './styles';
 
 interface IProps {
@@ -8,6 +9,7 @@ interface IProps {
   company: string;
   data: string;
   img: string;
+  id: string;
 }
 export const Card: React.FC<IProps> = ({
   title,
@@ -16,8 +18,10 @@ export const Card: React.FC<IProps> = ({
   company,
   data,
   img,
+  id,
 }: IProps) => {
   const authorFinal = [];
+  const { handleOpenDialog } = useBoard();
 
   if (author.length > 1) {
     for (let i = 0; i < 2; i++) {
@@ -26,26 +30,32 @@ export const Card: React.FC<IProps> = ({
   }
 
   return (
-    <Container>
-      <div className="tools">
-        <div className="imgContent">
-          <img alt="capa" src={img} />
-        </div>
-        <div className="content">
-          <div>
-            <strong>{title}</strong>
-            {authorFinal.map(a => (
-              <h3>{a}</h3>
-            ))}
+    <button
+      onClick={() => {
+        handleOpenDialog(id);
+      }}
+    >
+      <Container>
+        <div className="tools">
+          <div className="imgContent">
+            <img alt="capa" src={img} />
           </div>
-          <div>
-            <p>{pages} Páginas</p>
-            <p>Editora {LimitSentence(company, 10)}</p>
-            <p>Publicado em {data}</p>
+          <div className="content">
+            <div>
+              <strong>{title}</strong>
+              {authorFinal.map(a => (
+                <h3>{a}</h3>
+              ))}
+            </div>
+            <div>
+              <p>{pages} Páginas</p>
+              <p>Editora {LimitSentence(company, 10)}</p>
+              <p>Publicado em {data}</p>
+            </div>
           </div>
         </div>
-      </div>
-    </Container>
+      </Container>
+    </button>
   );
 };
 

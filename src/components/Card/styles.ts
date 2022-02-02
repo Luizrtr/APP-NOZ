@@ -16,6 +16,7 @@ export const Container = styled.div`
   }
   .content {
     ${tw`text-sm leading-5 grid gap-y-3`}
+    text-align: initial;
     strong {
       color: #333333;
     }

@@ -10,6 +10,7 @@ import Next from '../../assets/home/Next.png';
 
 import { Container } from './styles';
 import { Card } from '../../components/Card';
+import { BoardProvider } from '../../Context/board';
 
 interface IBooks {
   id: string;
@@ -45,7 +46,6 @@ export const App: React.FC = () => {
     }).then(response => {
       const { data } = response;
       if (data.data) {
-        console.log(data);
         setBooks(data.data);
       }
       if (data.data.length < 12) {
@@ -61,8 +61,7 @@ export const App: React.FC = () => {
   };
 
   const handlePreviousPage = async () => {
-    console.log(pages);
-    if (pages == 1) {
+    if (pages === 1) {
       fetchBooks(pages, 12, 'biographies');
     } else {
       fetchBooks(pages - 1, 12, 'biographies');
@@ -74,52 +73,55 @@ export const App: React.FC = () => {
   }, []);
 
   return (
-    <Container>
-      <div className="header">
-        <div className="fistContent">
-          <img alt="noz" src={noz} />
-          <h2>Books</h2>
-        </div>
-        <div className="lastContent">
-          <p>Bem vindo, {user?.name}!</p>
-          <button onClick={signOut}>
-            <img src={log_out} alt="" />
-          </button>
-        </div>
-      </div>
-      <div className="grid">
-        <div className="books">
-          {books &&
-            books.map(b => (
-              <Card
-                key={b.id}
-                title={b.title}
-                author={b.authors}
-                pages={b.pageCount.toString()}
-                company={b.publisher}
-                data={b.published.toString()}
-                img={b.imageUrl}
-              />
-            ))}
-        </div>
-        <div className="pagination">
-          <button onClick={handlePreviousPage}>
-            <img src={prev} alt="prev" className="mobile" />
-          </button>
-          <p>Página {pages} de 100</p>
-          <div>
-            <button onClick={handlePreviousPage}>
-              <img src={prev} alt="prev" className="full" />
+    <BoardProvider>
+      <Container>
+        <div className="header">
+          <div className="fistContent">
+            <img alt="noz" src={noz} />
+            <h2>Books</h2>
+          </div>
+          <div className="lastContent">
+            <p>Bem vindo, {user?.name}!</p>
+            <button onClick={signOut}>
+              <img src={log_out} alt="" />
             </button>
-            {!check && (
-              <button onClick={handleNewPage}>
-                <img src={Next} alt="Next" />
-              </button>
-            )}
           </div>
         </div>
-      </div>
-    </Container>
+        <div className="grid">
+          <div className="books">
+            {books &&
+              books.map(b => (
+                <Card
+                  id={b.id}
+                  key={b.id}
+                  title={b.title}
+                  author={b.authors}
+                  pages={b.pageCount.toString()}
+                  company={b.publisher}
+                  data={b.published.toString()}
+                  img={b.imageUrl}
+                />
+              ))}
+          </div>
+          <div className="pagination">
+            <button onClick={handlePreviousPage}>
+              <img src={prev} alt="prev" className="mobile" />
+            </button>
+            <p>Página {pages} de 100</p>
+            <div>
+              <button onClick={handlePreviousPage}>
+                <img src={prev} alt="prev" className="full" />
+              </button>
+              {!check && (
+                <button onClick={handleNewPage}>
+                  <img src={Next} alt="Next" />
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      </Container>
+    </BoardProvider>
   );
 };
 
