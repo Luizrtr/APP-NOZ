@@ -5,6 +5,7 @@ import { useAuth } from '../../hooks/auth';
 
 import noz from '../../assets/home/noz-black.png';
 import log_out from '../../assets/home/logout.png';
+import prev from '../../assets/home/Prev.png';
 
 import { Container } from './styles';
 import { Card } from '../../components/Card';
@@ -47,7 +48,7 @@ export const App: React.FC = () => {
   };
 
   useEffect(() => {
-    fetchBooks(1, 25, 'biographies');
+    fetchBooks(1, 12, 'biographies');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -66,18 +67,24 @@ export const App: React.FC = () => {
         </div>
       </div>
       <div className="books">
-        {books &&
-          books.map(b => (
-            <Card
-              key={b.id}
-              title={b.title}
-              author={b.authors}
-              pages={b.pageCount.toString()}
-              company={b.publisher}
-              data={b.published.toString()}
-              img={b.imageUrl}
-            />
-          ))}
+        <div>
+          {books &&
+            books.map(b => (
+              <Card
+                key={b.id}
+                title={b.title}
+                author={b.authors}
+                pages={b.pageCount.toString()}
+                company={b.publisher}
+                data={b.published.toString()}
+                img={b.imageUrl}
+              />
+            ))}
+        </div>
+        <div className="pagination">
+          <p>Página 1 de 100</p>
+          <img src={prev} alt="prev" />
+        </div>
       </div>
     </Container>
   );

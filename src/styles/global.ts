@@ -8,11 +8,14 @@ const StylesBase = createGlobalStyle`
 }
 :root {
   /* Colors */
+  --black: #333333;
   --white: #ffffff;
   --blue: #2E63F7;
   --gray: #333333;
   --gray-300: #999999;
   --pink: #AB2680;
+
+  --bg-primary: #E0E6EE;
 
 }
 

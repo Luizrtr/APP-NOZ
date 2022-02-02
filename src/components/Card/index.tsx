@@ -32,10 +32,12 @@ export const Card: React.FC<IProps> = ({
           <img alt="capa" src={img} />
         </div>
         <div className="content">
-          <strong>{title}</strong>
-          {authorFinal.map(a => (
-            <h3>{a}</h3>
-          ))}
+          <div>
+            <strong>{title}</strong>
+            {authorFinal.map(a => (
+              <h3>{a}</h3>
+            ))}
+          </div>
           <div>
             <p>{pages} Páginas</p>
             <p>Editora {LimitSentence(company, 10)}</p>
