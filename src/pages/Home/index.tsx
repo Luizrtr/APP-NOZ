@@ -83,9 +83,10 @@ export const App: React.FC = () => {
             ))}
         </div>
         <div className="pagination">
+          <img src={prev} alt="prev" className="mobile" />
           <p>Página 1 de 100</p>
           <div>
-            <img src={prev} alt="prev" />
+            <img src={prev} alt="prev" className="full" />
             <img src={Next} alt="Next" />
           </div>
         </div>

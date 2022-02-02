@@ -2,16 +2,16 @@ import styled from 'styled-components';
 import tw from 'twin.macro';
 
 export const Container = styled.div`
-  ${tw`w-80 h-44`}
+  ${tw`md:w-80 md:h-44 w-[288px] h-[160px]`}
   background: var(--white);
   box-shadow: 0px 6px 24px rgba(84, 16, 95, 0.13);
   border-radius: 4px;
 
   .tools {
-    ${tw`flex py-5 px-4 gap-4`}
+    ${tw`flex md:py-4 md:px-3 py-5 px-4 gap-4`}
   }
   img {
-    ${tw`w-20 h-32`}/* width: 5.063rem;
+    ${tw`w-24 h-36`}/* width: 5.063rem;
     height: 7.625rem; */
   }
   .content {

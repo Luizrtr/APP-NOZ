@@ -27,7 +27,7 @@ export const Container = styled.div`
     }
   }
   .grid {
-    ${tw`container mx-auto `}
+    ${tw`md:container md:mx-auto justify-center`}
     .books {
       ${tw`grid grid-cols-1 md:grid-cols-4 gap-6 m-auto`}
       width: fit-content;
@@ -37,6 +37,12 @@ export const Container = styled.div`
       color: var(--black);
       div {
         ${tw`flex gap-1`}
+      }
+      .mobile {
+        ${tw`md:hidden`}
+      }
+      .full {
+        ${tw`hidden md:flex`}
       }
     }
   }
