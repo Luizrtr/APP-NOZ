@@ -6,6 +6,7 @@ import { useAuth } from '../../hooks/auth';
 import noz from '../../assets/home/noz-black.png';
 import log_out from '../../assets/home/logout.png';
 import prev from '../../assets/home/Prev.png';
+import Next from '../../assets/home/Next.png';
 
 import { Container } from './styles';
 import { Card } from '../../components/Card';
@@ -66,8 +67,8 @@ export const App: React.FC = () => {
           </button>
         </div>
       </div>
-      <div className="books">
-        <div>
+      <div className="grid">
+        <div className="books">
           {books &&
             books.map(b => (
               <Card
@@ -83,7 +84,10 @@ export const App: React.FC = () => {
         </div>
         <div className="pagination">
           <p>Página 1 de 100</p>
-          <img src={prev} alt="prev" />
+          <div>
+            <img src={prev} alt="prev" />
+            <img src={Next} alt="Next" />
+          </div>
         </div>
       </div>
     </Container>

@@ -26,14 +26,18 @@ export const Container = styled.div`
       }
     }
   }
-  .books {
-    ${tw`container mx-auto justify-items-center`}
-    > div {
+  .grid {
+    ${tw`container mx-auto `}
+    .books {
       ${tw`grid grid-cols-1 md:grid-cols-4 gap-6 m-auto`}
       width: fit-content;
     }
-  }
-  .pagination {
-    ${tw`flex items-center container`}
+    .pagination {
+      ${tw`flex justify-end my-5 mr-28 items-center gap-5`}
+      color: var(--black);
+      div {
+        ${tw`flex gap-1`}
+      }
+    }
   }
 `;
