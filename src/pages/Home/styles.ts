@@ -33,7 +33,7 @@ export const Container = styled.div`
       width: fit-content;
     }
     .pagination {
-      ${tw`flex justify-end my-5 mr-28 items-center gap-5`}
+      ${tw`flex justify-center  md:justify-end my-5 md:mr-28 items-center gap-5`}
       color: var(--black);
       div {
         ${tw`flex gap-1`}

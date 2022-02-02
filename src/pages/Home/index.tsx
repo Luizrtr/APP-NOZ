@@ -29,9 +29,12 @@ interface IBooks {
 export const App: React.FC = () => {
   const { user, signOut } = useAuth();
   const [books, setBooks] = useState<IBooks[]>();
+  const [pages, setPages] = useState<number>(1);
+  const [check, setCheck] = useState(false);
   const token = localStorage.getItem('@APPNOZ:token');
 
   const fetchBooks = async (page: number, amount: number, category: string) => {
+    setPages(page);
     axios({
       method: 'get',
       baseURL: 'http://books.appnoz.com.br/api/v1',
@@ -41,15 +44,32 @@ export const App: React.FC = () => {
       },
     }).then(response => {
       const { data } = response;
-      if (data) {
-        console.log(data.data);
+      if (data.data) {
+        console.log(data);
         setBooks(data.data);
+      }
+      if (data.data.length < 12) {
+        setCheck(true);
+      } else {
+        setCheck(false);
       }
     });
   };
 
+  const handleNewPage = async () => {
+    fetchBooks(pages + 1, 12, 'biographies');
+  };
+
+  const handlePreviousPage = async () => {
+    console.log(pages);
+    if (pages == 1) {
+      fetchBooks(pages, 12, 'biographies');
+    } else {
+      fetchBooks(pages - 1, 12, 'biographies');
+    }
+  };
   useEffect(() => {
-    fetchBooks(1, 12, 'biographies');
+    fetchBooks(pages, 12, 'biographies');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -83,11 +103,19 @@ export const App: React.FC = () => {
             ))}
         </div>
         <div className="pagination">
-          <img src={prev} alt="prev" className="mobile" />
-          <p>Página 1 de 100</p>
+          <button onClick={handlePreviousPage}>
+            <img src={prev} alt="prev" className="mobile" />
+          </button>
+          <p>Página {pages} de 100</p>
           <div>
-            <img src={prev} alt="prev" className="full" />
-            <img src={Next} alt="Next" />
+            <button onClick={handlePreviousPage}>
+              <img src={prev} alt="prev" className="full" />
+            </button>
+            {!check && (
+              <button onClick={handleNewPage}>
+                <img src={Next} alt="Next" />
+              </button>
+            )}
           </div>
         </div>
       </div>
