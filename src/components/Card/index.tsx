@@ -23,7 +23,7 @@ export const Card: React.FC<IProps> = ({
   const authorFinal = [];
   const { handleOpenDialog } = useBoard();
 
-  if (author.length > 1) {
+  if (author.length >= 1) {
     for (let i = 0; i < 2; i++) {
       authorFinal.push(author[i]);
     }

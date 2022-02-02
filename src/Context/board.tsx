@@ -1,6 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import axios from 'axios';
 import React, { useMemo, useCallback, useContext, useState } from 'react';
-import api from '../services/api';
 
 interface Context {
   handleOpenDialog: (id: string) => void;
@@ -24,8 +24,8 @@ interface Context {
 const BoardContext = React.createContext<Context | undefined>(undefined);
 
 const BoardProvider: React.FC = ({ children }) => {
-  const [openDialog, setOpenDialog] = useState(false);
   const token = localStorage.getItem('@APPNOZ:token');
+  const [openDialog, setOpenDialog] = useState(false);
   const [books, setBooks] = useState<any | null>();
 
   const handleOpenDialog = async (id: string) => {
@@ -39,6 +39,7 @@ const BoardProvider: React.FC = ({ children }) => {
       },
     }).then(response => {
       const { data } = response;
+      console.log(data);
       setBooks(data);
     });
 
