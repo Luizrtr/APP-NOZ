@@ -29,7 +29,6 @@ const BoardProvider: React.FC = ({ children }) => {
   const [books, setBooks] = useState<any | null>();
 
   const handleOpenDialog = async (id: string) => {
-    console.log(id);
     axios({
       method: 'get',
       baseURL: 'http://books.appnoz.com.br/api/v1',
@@ -39,11 +38,11 @@ const BoardProvider: React.FC = ({ children }) => {
       },
     }).then(response => {
       const { data } = response;
-      console.log(data);
-      setBooks(data);
+      if (data) {
+        setBooks(data);
+        setOpenDialog(true);
+      }
     });
-
-    // setOpenDialog(true);
   };
 
   const handleClose = useCallback(() => {
