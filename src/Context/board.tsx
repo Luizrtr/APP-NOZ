@@ -2,23 +2,27 @@
 import axios from 'axios';
 import React, { useMemo, useCallback, useContext, useState } from 'react';
 
+
+import { Modal } from '../components/Modal';
+
+interface IModal {
+  authors: string[];
+  category: string;
+  description: string;
+  id: string;
+  imageUrl: string;
+  isbn10: string;
+  isbn13: string;
+  language: string;
+  pageCount: number;
+  published: string;
+  publisher: number;
+  title: string;
+}
 interface Context {
   handleOpenDialog: (id: string) => void;
   openDialog: boolean;
-  books: {
-    authors: string[];
-    category: string;
-    description: string;
-    id: string;
-    imageUrl: string;
-    isbn10: string;
-    isbn13: string;
-    language: string;
-    pageCount: string;
-    published: string;
-    publisher: string;
-    title: string;
-  };
+  books: IModal;
 }
 
 const BoardContext = React.createContext<Context | undefined>(undefined);
@@ -66,6 +70,7 @@ const BoardProvider: React.FC = ({ children }) => {
     </BoardContext.Provider>
   );
 };
+
 
 function useBoard() {
   const context = useContext(BoardContext);
