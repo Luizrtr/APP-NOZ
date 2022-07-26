@@ -1,31 +1,31 @@
 # APP-NOZ
 
-<!-- <img src="exemplo-image.png" alt="exemplo imagem"> -->
+<!-- <img src="example-image.png" alt="example imagem"> -->
 
-> Linha adicional de texto informativo sobre o que o projeto faz. Sua introdução deve ter cerca de 2 ou 3 linhas. Não exagere, as pessoas não vão ler.
+> That is a project where there books management per users. The app is fed by per data API made by the APP NOZ.
 
-### Ajustes e melhorias
+### Adjustments and Improvements
 
-O projeto ainda está em desenvolvimento e as próximas atualizações serão voltadas nas seguintes tarefas:
+The Project still are in development and at next updates will be focused on the following task
 
-- [ ] Tarefa 1
-- [ ] Tarefa 2
-- [ ] Tarefa 3
-- [ ] Tarefa 4
-- [ ] Tarefa 5
+- [ ] Task 1
+- [ ] Task 2
+- [ ] Task 3
+- [ ] Task 4
+- [ ] Task 5
 
-## 💻 Pré-requisitos
+## 💻 Prerequisites
 
-Antes de começar, verifique se você atendeu aos seguintes requisitos:
+Before start, check if you answered to the requirements:
 
-<!---Estes são apenas requisitos de exemplo. Adicionar, duplicar ou remover conforme necessário--->
+<!--- these are just sample requirements. Add, duplicate or to remove--->
 
-- Você instalou a versão mais recente de `<**** / **** >`
-- Você tem uma máquina `<Windows / Linux / Mac>`. Indique qual sistema operacional é compatível / não compatível.
+- Have you installed the latest version on  `<**** / **** >`
+- You have a machina  `<Windows / Linux / Mac>`.
 
-## 🚀 Instalando Projeto
+## 🚀 Installed Project
 
-Para instalar o Projeto, siga estas etapas:
+To install the project, follow up phases:
 
 Linux e macOS:
 
@@ -37,7 +37,7 @@ yarn
 yarn start
 ```
 
-## 🤝 Colaboradores
+## 🤝 Collaborators
 
 <table>
   <tr>
@@ -52,8 +52,8 @@ yarn start
   </tr>
 </table>
 
-## 📝 Licença
+## 📝 License
 
-Esse projeto está sob licença.
+This project is under license.
 
-[⬆ Voltar ao topo](#Projeto)<br>
+[⬆back to top](#Project)<br>
